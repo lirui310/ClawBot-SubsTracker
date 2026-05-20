@@ -235,7 +235,38 @@ clawbot-queue     RUNNING   pid 12346, uptime 0:00:05
 
 ---
 
-## 六、验证部署
+## 六、Webhook 使用
+
+每个通道在创建后会自动生成一个 48 位随机 Token，可在聊天页点击「Webhook」按钮查看完整 URL。
+
+**Webhook 仅支持 POST 请求**（GET 会返回 405）。URL 中的 Token 本身即鉴权，无需额外请求头。
+
+```bash
+# POST JSON（推荐）
+curl -X POST "https://yourdomain.com/hook/<token>" \
+  -H "Content-Type: application/json" \
+  -d '{"content": "消息内容"}'
+
+# POST form-data
+curl -X POST "https://yourdomain.com/hook/<token>" \
+  -d "content=消息内容"
+```
+
+**响应格式：**
+
+```json
+// 成功
+{"ok": true}
+
+// 失败（含错误原因）
+{"ok": false, "error": "No inbound message found..."}
+```
+
+> **注意**：微信用户必须先主动给 Bot 发过消息，Webhook 才能送达。Webhook 限流为每分钟 30 次。
+
+---
+
+## 八、验证部署
 
 ```bash
 # 检查进程状态
@@ -252,7 +283,7 @@ tail -f /var/www/clawbot/storage/logs/laravel.log
 
 ---
 
-## 七、代码更新流程
+## 九、代码更新流程
 
 每次发布新版本执行：
 
@@ -275,7 +306,7 @@ sudo supervisorctl restart clawbot-listen
 
 ---
 
-## 常见问题
+## 十、常见问题
 
 **Q：重启 `clawbot-listen` 后通道多久恢复监听？**
 主进程每 5 秒扫描一次活跃通道，重启后 5 秒内所有通道自动恢复轮询。

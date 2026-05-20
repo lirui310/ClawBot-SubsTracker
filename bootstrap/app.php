@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Webhook endpoint is authenticated by the URL token itself — no CSRF needed
+        $middleware->validateCsrfTokens(except: ['hook/*']);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

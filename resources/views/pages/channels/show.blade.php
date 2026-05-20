@@ -98,14 +98,14 @@ new class extends Component {
             <div class="break-all rounded-lg bg-zinc-100 p-3 font-mono text-xs dark:bg-zinc-800">{{ $webhookUrl }}</div>
 
             <div class="space-y-2">
-                <p class="text-sm font-medium">使用示例</p>
-                <div class="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-800">
-                    <p class="mb-1 text-xs text-zinc-400">GET</p>
-                    <p class="break-all font-mono text-xs">{{ $webhookUrl }}?content=你好</p>
+                <p class="text-sm font-medium">调用示例（仅支持 POST）</p>
+                <div class="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-800 space-y-1">
+                    <p class="text-xs text-zinc-400">curl</p>
+                    <p class="break-all font-mono text-xs leading-relaxed">curl -X POST "{{ $webhookUrl }}" \<br>&nbsp;-H "Content-Type: application/json" \<br>&nbsp;-d '{"content": "消息内容"}'</p>
                 </div>
-                <div class="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-800">
-                    <p class="mb-1 text-xs text-zinc-400">POST · application/json</p>
-                    <p class="font-mono text-xs">{"content": "你好"}</p>
+                <div class="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-800 space-y-1">
+                    <p class="text-xs text-zinc-400">form-data</p>
+                    <p class="break-all font-mono text-xs">curl -X POST "{{ $webhookUrl }}" -d "content=消息内容"</p>
                 </div>
             </div>
         </div>

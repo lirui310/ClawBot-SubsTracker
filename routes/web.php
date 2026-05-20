@@ -30,8 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('subscriptions/{subscription}/edit', 'subscriptions.edit')->name('subscriptions.edit');
 });
 
-// Public webhook — URL token IS the auth, no session required; rate-limited to 30/min per token
-Route::any('/hook/{token}', [WebhookController::class, 'send'])
+// Public webhook — POST only, CSRF excluded in bootstrap/app.php, token IS the auth
+Route::post('/hook/{token}', [WebhookController::class, 'send'])
     ->middleware('throttle:30,1')
     ->name('channel.webhook');
 

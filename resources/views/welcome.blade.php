@@ -85,7 +85,7 @@
             <div class="rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6">
                 <div class="size-10 rounded-xl bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-xl mb-4">🔗</div>
                 <h3 class="font-semibold mb-2">Webhook 推送</h3>
-                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">每个通道有唯一 Webhook URL，GET 或 POST 请求均可发送消息，URL 即鉴权，无需额外 Token。</p>
+                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">每个通道有唯一 Webhook URL，POST 请求发送消息，URL 即鉴权，无需额外 Token。</p>
             </div>
             <div class="rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6">
                 <div class="size-10 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-xl mb-4">💬</div>
@@ -129,15 +129,18 @@
         <p class="text-zinc-500 dark:text-zinc-400 mb-8 text-sm">在通道聊天页点击「Webhook」按钮获取专属 URL，通过 HTTP 请求即可主动推送消息</p>
         <div class="grid sm:grid-cols-2 gap-4">
             <div class="rounded-2xl bg-zinc-900 dark:bg-zinc-800 p-5">
-                <p class="text-xs text-zinc-400 mb-3 font-medium uppercase tracking-wide">GET 请求</p>
-                <code class="text-green-400 text-sm break-all leading-relaxed">curl "https://域名/hook/TOKEN?content=年审还有30天"</code>
-            </div>
-            <div class="rounded-2xl bg-zinc-900 dark:bg-zinc-800 p-5">
                 <p class="text-xs text-zinc-400 mb-3 font-medium uppercase tracking-wide">POST JSON</p>
                 <code class="text-green-400 text-sm leading-loose">
                     curl -X POST "https://域名/hook/TOKEN" \<br>
                     &nbsp;-H "Content-Type: application/json" \<br>
-                    &nbsp;-d '{"content":"提醒内容"}'
+                    &nbsp;-d '{"content":"年审还有30天"}'
+                </code>
+            </div>
+            <div class="rounded-2xl bg-zinc-900 dark:bg-zinc-800 p-5">
+                <p class="text-xs text-zinc-400 mb-3 font-medium uppercase tracking-wide">POST form-data</p>
+                <code class="text-green-400 text-sm leading-loose">
+                    curl -X POST "https://域名/hook/TOKEN" \<br>
+                    &nbsp;-d "content=年审还有30天"
                 </code>
             </div>
         </div>
